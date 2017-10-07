@@ -1,5 +1,7 @@
 <?php
+include '../Config/Config.php';
 include '../Database/Database.php';
+include '../Format/Format.php';
   spl_autoload_register(function($class){
      include '../Classes/'.$class.".php";
   });
