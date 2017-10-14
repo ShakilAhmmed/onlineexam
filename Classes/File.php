@@ -18,6 +18,14 @@ class File{
 	    		include '../Admin_panel/Sub_page/setup.php';
 	    		break;
 
+	    		case 'exam':
+	    		include '../Admin_panel/Sub_page/exam.php';
+	    		break;
+
+	    		case 'question':
+	    		include '../Admin_panel/Sub_page/question.php';
+	    		break;
+
 	    		default:
 	    		include '../Admin_panel/Sub_page/error.php';
 	    	}

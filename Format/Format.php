@@ -11,17 +11,17 @@ class Format{
 
 	public function required(array $data)
 	{
-         foreach ($$data as $key=>$value) {
+         foreach ($data as $key=>$value) {
          	if(empty($value))
          	{
-              return $this->error("$key Is Required");
+              echo $this->error("$key Is Required");
          	}
          }
 	}
 
 	public function success($msg)
 	{
-		$message="<div class='alert alert-success alert-dismissable'>";
+		$message="<div class='text-center alert alert-success alert-dismissable'>";
 		$message.="<a href='' class='close' data-dismiss='alert' aria-label='close'>×</a>";
 		$message.=$msg;
 		$message.="</div>";
@@ -30,8 +30,9 @@ class Format{
 	}
 	public function error($msg)
 	{
-		$message="<div class='alert alert-danger alert-dismissable'>";
+		$message="<div class='text-center alert alert-danger alert-dismissable'>";
 		$message.="<a href='' class='close' data-dismiss='alert' aria-label='close'>×</a>";
+		$message.="<i class='fa fa-hand-o-right' aria-hidden='true'></i>";
 		$message.=$msg;
 		$message.="</div>";
 		return $message;

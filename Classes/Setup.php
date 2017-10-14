@@ -28,8 +28,13 @@ class Setup{
         $div                 =explode(".",$school_logo_name);
         $ext                 =strtolower(end($div));
         $school_logo_path    ="images/Setup/".time().".".$ext;
-        $required            =[$school_name,$school_email,$school_address,$school_logo_name];
-        $this->fm->required($required);
+        $required            =[
+                          'School Name'   =>$school_name,
+                          'School Email'  =>$school_email,
+                          'School Address'=>$school_address,
+                          'School Logo'   =>$school_logo_name
+                              ];
+        echo $this->fm->required($required);
         foreach ($required as  $value) {
         	$this->fm->validation($value);
         	mysqli_real_escape_string($this->db->connection,$value);
@@ -64,6 +69,7 @@ class Setup{
         }
 
 	}
+       
 
 
 }
