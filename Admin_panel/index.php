@@ -1,5 +1,7 @@
 <?php
+include '../Config/Config.php';
 include '../Database/Database.php';
+include '../Format/Format.php';
   spl_autoload_register(function($class){
      include '../Classes/'.$class.".php";
   });
@@ -69,8 +71,8 @@ include '../Database/Database.php';
   <ul>
     <li class="active"><a href="index.html"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
     <li> <a href="?page=setup"><i class="icon icon-signal"></i> <span>Setup</span></a> </li>
-    <li> <a href="widgets.html"><i class="icon icon-inbox"></i> <span>Widgets</span></a> </li>
-    <li><a href="tables.html"><i class="icon icon-th"></i> <span>Tables</span></a></li>
+    <li> <a href="?page=exam"><i class="icon icon-inbox"></i> <span>Exam</span></a> </li>
+    <li><a href="?page=question"><i class="icon icon-th"></i> <span>Questions</span></a></li>
     <li><a href="grid.html"><i class="icon icon-fullscreen"></i> <span>Full width</span></a></li>
     <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i> <span>Forms</span> <span class="label label-important">3</span></a>
       <ul>
@@ -135,7 +137,7 @@ include '../Database/Database.php';
 <!--Footer-part-->
 
 <div class="row-fluid">
-  <div id="footer" class="span12"> 2013 &copy; Matrix Admin. Brought to you by <a href="http://themedesigner.in">Themedesigner.in</a> </div>
+  <div id="footer" class="span12"> 2017&copy;Brought to you by <a href="http://codebool.com" target="_blank">Code Breakers</a> </div>
 </div>
 
 <!--end-Footer-part-->
@@ -161,7 +163,7 @@ include '../Database/Database.php';
 <script src="js/matrix.popover.js"></script> 
 <script src="js/jquery.dataTables.min.js"></script> 
 <script src="js/matrix.tables.js"></script> 
-
+<script src="https://use.fontawesome.com/c6a0be9dda.js"></script>
 <script type="text/javascript">
   // This function is called from the pop-up menus to transfer to
   // a different page. Ignore if the value returned is a null string:

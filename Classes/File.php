@@ -5,10 +5,10 @@ class File{
 	public function file_load()
 	{ 
 
-		$path=$this->file=$_REQUEST['page'];
-	    if(isset($path))
+		$this->file=$_REQUEST['page'];
+	    if(isset($this->file))
 	    {
-	    	switch($path)
+	    	switch($this->file)
 	    	{
 	    		case 'home':
 	    		include '../Admin_panel/Sub_page/home.php';
@@ -16,6 +16,14 @@ class File{
 
 	    		case 'setup':
 	    		include '../Admin_panel/Sub_page/setup.php';
+	    		break;
+
+	    		case 'exam':
+	    		include '../Admin_panel/Sub_page/exam.php';
+	    		break;
+
+	    		case 'question':
+	    		include '../Admin_panel/Sub_page/question.php';
 	    		break;
 
 	    		default:
