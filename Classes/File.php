@@ -26,6 +26,14 @@ class File{
 	    		include '../Admin_panel/Sub_page/question.php';
 	    		break;
 
+	    		case 'question_edit':
+	    		include '../Admin_panel/Sub_page/question_edit.php';
+	    		break;
+
+	    		case 'user':
+	    		include '../Admin_panel/Sub_page/user.php';
+	    		break;
+
 	    		default:
 	    		include '../Admin_panel/Sub_page/error.php';
 	    	}

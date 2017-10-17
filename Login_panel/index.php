@@ -1,4 +1,18 @@
-
+<?php
+include '../Config/Config.php';
+include '../Database/Database.php';
+include '../Format/Format.php';
+spl_autoload_register(function($class){
+	include '../Classes/'.$class.".php";
+});
+$setup=new Setup;
+$value=$setup->setup_data();
+if($_SERVER['REQUEST_METHOD']=='POST'&&isset($_POST['login']))
+{
+	$login_data=new Login;
+	$login_data->user_login($_POST);
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <!-- Head -->
@@ -53,8 +67,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div id="small-dialog1" class="mfp-hide book-form">
 			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				<h3>Sign In </h3>
-					<form action="#" method="post">
-						<input type="email" name="Email" class="email" placeholder="Email" required=""/>
+					<form action="" method="post">
+						<input type="email" name="email" class="email" placeholder="Email" required=""/>
 						<input type="password" name="Password" class="password" placeholder="Password" required=""/>	
 						<ul>
 						<li>
@@ -64,7 +78,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						</ul>
 						<a href="#">Forgot Password?</a><br>
 						<div class="clearfix"></div>
-							<input type="submit" value="Sign In">
+							<input type="submit" name="login" value="Sign In">
 					</form>
 			</div>
 		</div>
@@ -79,12 +93,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div id="small-dialog2" class="mfp-hide book-form">
 			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				<h3>Sign Up</h3>
-					<form action="#" method="post">
-						<input type="text" name="Name" placeholder="Your Name" required=""/>
-						<input type="email" name="Email" class="email" placeholder="Email" required=""/>
-						<input type="password" name="Password" class="password" placeholder="Password" required=""/>	
-						<input type="password" name="Password" class="password" placeholder="Confirm Password" required=""/>
-						<input type="submit" value="Sign Up">
+					<form action="" method="post">
+					   <span id="msg3"></span>
+						<input type="text" name="Name" placeholder="Your Name" id="name" required=""/>
+						<input type="email" name="Email" class="email" id="email" placeholder="Email" required=""/>
+						<input type="password" name="Password" id="password" class="password" placeholder="Password" required=""/>	
+						<span id="msg"></span>
+						<input type="password" name="Password" id="confirm_password" class="password" placeholder="Confirm Password" required=""/>
+						<span id="msg2"></span>
+						<br/>
+						<input type="button" class="btn btn-success" value="Sign Up" id="submit">
 					</form>
 			</div>
 		</div>
@@ -96,9 +114,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <div class="top">
 	<div class="container">
 		<div class="col-md-4 top-left">
-			<p><i class="fa fa-map-marker" aria-hidden="true"></i> Avenue park,4th Block,Near statue</p>
+			<p><i class="fa fa-map-marker" aria-hidden="true"></i><?=$value['school_address']?></p>
 		</div>
-		<div class="col-md-4 top-middle">
+<!-- 		<div class="col-md-4 top-middle">
 			<ul>
 				<li><a href="#"><i class="fa fa-facebook"></i></a></li>
 				<li><a href="#"><i class="fa fa-twitter"></i></a></li>
@@ -106,7 +124,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<li><a href="#"><i class="fa fa-linkedin"></i></a></li>
 				<li><a href="#"><i class="fa fa-vimeo"></i></a></li>
 			</ul>
-		</div>
+		</div> -->
 		<div class="col-md-4 top-right">
 			<a href="#" data-toggle="modal" data-target="#myModal1"><span></span> Sign In</a>
 			<a href="#" data-toggle="modal" data-target="#myModal2"><span></span> Sign Up</a>
@@ -129,7 +147,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							</button>
 					</div>
 					<div class="logo">
-						<h1><a class="navber-brand" href="index.html"><i class="fa fa-graduation-cap" aria-hidden="true"></i>Graduation</a></h1>
+						<h1><a class="navber-brand" href="index.php"><img src="../Admin_panel/<?=$value['school_logo']?>" height="97px"/><?=$value['school_name']?></a></h1>
 					</div>
 				</nav>
 			</div>
@@ -224,3 +242,99 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				</div>
 			</div>
 	</div>
+	<!-- //footer --> 
+
+<!-- start-smooth-scrolling -->
+	<script type="text/javascript" src="js/move-top.js"></script>
+	<script type="text/javascript" src="js/easing.js"></script>	
+	<script type="text/javascript">
+			jQuery(document).ready(function($) {
+				$(".scroll").click(function(event){		
+					event.preventDefault();
+			
+			$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+				});
+			});
+	</script>
+<!-- //end-smooth-scrolling -->	
+
+<!-- smooth-scrolling-of-move-up -->
+	<script type="text/javascript">
+		$(document).ready(function() {
+			/*
+			var defaults = {
+				containerID: 'toTop', // fading element id
+				containerHoverID: 'toTopHover', // fading element hover id
+				scrollSpeed: 1200,
+				easingType: 'linear' 
+			};
+			*/
+			
+			$().UItoTop({ easingType: 'easeOutQuart' });
+			
+		});
+	</script>
+<!-- //smooth-scrolling-of-move-up -->   
+
+<!-- For Gallery js files -->
+<script src="js/lightGallery.js"></script>
+	<script>
+    	 $(document).ready(function() {
+			$("#lightGallery").lightGallery({
+				mode:"fade",
+				speed:800,
+				caption:true,
+				desc:true,
+				mobileSrc:true
+			});
+
+			$("#password").unbind().keyup(function(){
+                  var password=$("#password").val().length;
+				if(password>=9)
+				{
+                  $("#msg").html("<font style=\"color:green;\">Password Strong</font>");
+				}
+				else
+				{
+				  $("#msg").html("<font style=\"color:red;\">Password Weak</font>");
+				}
+			});
+
+			$("#confirm_password").unbind().keyup(function(){
+                  var password=$("#password").val();
+				  var confirm_password=$("#confirm_password").val();
+				if(password==confirm_password)
+				{
+                  $("#msg2").html("<font style=\"color:green;\">Password Match</font>");
+				}else
+				{
+					$("#msg2").html("<font style=\"color:red;\">Password Not Match</font>");
+				}
+			});
+
+			$("#submit").unbind().click(function(){
+				var name=$("#name").val();
+				var email=$("#email").val();
+				var password=$("#password").val();
+				var confirm_password=$("#confirm_password").val();
+				//alert(name+email+password+confirm_password);
+				$.ajax({
+                    'url':'../Admin_panel/report.php',
+                    'type':'post',
+                    data:{'name':name,'email':email,'password':password,'confirm_password':confirm_password},
+                    success:function(data){
+                        //console.log(data);
+                        $("#msg3").html(data);
+                    }
+				});
+				
+			});
+		});
+    </script>
+<!-- //For Gallery js files -->
+
+
+
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+</body>
+</html>

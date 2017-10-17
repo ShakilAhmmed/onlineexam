@@ -1,4 +1,22 @@
-
+<?php
+include '../Config/Config.php';
+include '../Database/Database.php';
+include '../Format/Format.php';
+include '../Session/Session.php';
+Session::checkSession();
+spl_autoload_register(function($class){
+    include '../Classes/'.$class.".php";
+});
+if(isset($_GET['action']))
+{
+	Session::destroy();
+}
+$setup=new Setup;
+$setup_data=$setup->setup_data();
+$user=new User;
+$email=Session::get("email");
+$value=$user->log_user_data($email);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <!-- Head -->
@@ -47,29 +65,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 <!-- banner section -->
 <!-- popup for sign in form -->
-<div class="modal video-modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModal1">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div id="small-dialog1" class="mfp-hide book-form">
-			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h3>Sign In </h3>
-					<form action="#" method="post">
-						<input type="email" name="Email" class="email" placeholder="Email" required=""/>
-						<input type="password" name="Password" class="password" placeholder="Password" required=""/>	
-						<ul>
-						<li>
-							<input type="checkbox" id="brand1" value="">
-							<label for="brand1"><span></span>Remember me</label>
-						</li>
-						</ul>
-						<a href="#">Forgot Password?</a><br>
-						<div class="clearfix"></div>
-							<input type="submit" value="Sign In">
-					</form>
-			</div>
-		</div>
-	</div>
-</div>
 <!-- //popup for sign in form -->
 
 <!-- popup for sign up form -->
@@ -78,13 +73,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div class="modal-content">
 			<div id="small-dialog2" class="mfp-hide book-form">
 			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h3>Sign Up</h3>
+				<h3>My Profile</h3>
 					<form action="#" method="post">
-						<input type="text" name="Name" placeholder="Your Name" required=""/>
-						<input type="email" name="Email" class="email" placeholder="Email" required=""/>
-						<input type="password" name="Password" class="password" placeholder="Password" required=""/>	
-						<input type="password" name="Password" class="password" placeholder="Confirm Password" required=""/>
-						<input type="submit" value="Sign Up">
+						<input type="text" name="Name" value="<?=$value['name']?>" required=""/>
+						<input type="email" name="Email" class="email" value="<?=$value['email']?>" required=""/>
 					</form>
 			</div>
 		</div>
@@ -96,20 +88,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <div class="top">
 	<div class="container">
 		<div class="col-md-4 top-left">
-			<p><i class="fa fa-map-marker" aria-hidden="true"></i> Avenue park,4th Block,Near statue</p>
+			<p><i class="fa fa-map-marker" aria-hidden="true"></i><?=$setup_data['school_address']?></p>
+			
 		</div>
 		<div class="col-md-4 top-middle">
-			<ul>
-				<li><a href="#"><i class="fa fa-facebook"></i></a></li>
-				<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-				<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-				<li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-				<li><a href="#"><i class="fa fa-vimeo"></i></a></li>
-			</ul>
+		  <span style="color:green;">Welcome!<?php echo Session::get("name");?></span>
 		</div>
 		<div class="col-md-4 top-right">
-			<a href="#" data-toggle="modal" data-target="#myModal1"><span></span> Sign In</a>
-			<a href="#" data-toggle="modal" data-target="#myModal2"><span></span> Sign Up</a>
+			<a href="index.php?action=logout"><span></span> Logout</a>
+			<a href="#" data-toggle="modal" data-target="#myModal2"><span></span> My Profile</a>
 		</div>
 		<div class="clearfix"></div>
 	</div> 
@@ -129,16 +116,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							</button>
 					</div>
 					<div class="logo">
-						<h1><a class="navber-brand" href="index.html"><i class="fa fa-graduation-cap" aria-hidden="true"></i>Graduation</a></h1>
+						<h1><a class="navber-brand" href="index.html"><img src="../Admin_panel/<?=$setup_data['school_logo']?>" height="97px"/><?=$setup_data['school_name']?></a></h1>
 					</div>
 					<div class="collapse navbar-collapse navbar-right navigation-right" id="bs-example-navbar-collapse-1">
 						<nav class="link-effect-3" id="link-effect-3">
 							<ul class="nav1 navbar-nav nav nav-wil">
-								<li class="active"><a data-hover="Home" href="index.html">Home</a></li>
-								<li><a data-hover="About" href="#about" class="scroll">About</a></li>
-								<li><a data-hover="Services" href="#services" class="scroll">Services</a></li>
-								<li><a data-hover="OurStaff" href="#staff" class="scroll">OurStaff</a></li>
-								<li><a data-hover="Gallery" href="#gallery" class="scroll">Gallery</a></li>
+								<li class="active"><a data-hover="Home" href="index.php">Home</a></li>
+								<li><a data-hover="Exam" href="#exam" class="scroll">Exam</a>
 								<li><a data-hover="Contact" href="#contact" class="scroll">Contact</a></li>
 							</ul>
 						</nav>

@@ -137,7 +137,7 @@ if(isset($_GET['editid']))
                 <a href="index.php?page=exam&&editid=<?=$list_data['id']?>">
                  <button type="button" class="btn btn-info btn-lg">Edit</button>
                 </a>
-                <a href="index.php?page=exam&&delid=<?=$list_data['id']?>">
+                <a href="index.php?page=exam&&delid=<?=$list_data['id']?>" onclick="return confirm('Are You Sure?')">
                  <button class="btn btn-danger">Delete</button>
                 </a>
                  <?php

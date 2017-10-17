@@ -5,7 +5,8 @@
 <!-- //banner section -->
 <!-- services -->
 <!-- Admission form -->
-    <div class="admission">
+
+    <div class="admission" id="exam">
 	   <div class="container">
 	   <div class="heading">
 			<h3>Attend Exam</h3>
