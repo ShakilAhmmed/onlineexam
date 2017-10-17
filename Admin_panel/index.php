@@ -73,7 +73,7 @@ include '../Format/Format.php';
     <li> <a href="?page=setup"><i class="icon icon-signal"></i> <span>Setup</span></a> </li>
     <li> <a href="?page=exam"><i class="icon icon-inbox"></i> <span>Exam</span></a> </li>
     <li><a href="?page=question"><i class="icon icon-th"></i> <span>Questions</span></a></li>
-    <li><a href="grid.html"><i class="icon icon-fullscreen"></i> <span>Full width</span></a></li>
+    <li><a href="?page=user"><i class="icon icon-fullscreen"></i> <span>User</span></a></li>
     <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i> <span>Forms</span> <span class="label label-important">3</span></a>
       <ul>
         <li><a href="form-common.html">Basic Form</a></li>

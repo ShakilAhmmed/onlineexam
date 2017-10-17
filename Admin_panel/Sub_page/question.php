@@ -4,6 +4,18 @@ if($_SERVER['REQUEST_METHOD']=='POST'&&isset($_POST['submit']))
 {
   $new_que=$question->new_question($_POST);
 }
+if(isset($_GET['delid']))
+{
+  $delid=$_GET['delid'];
+  $delid=preg_replace('/[^-a-zA-Z0-9_]/', '',$delid);
+  $question->question_delete($delid);
+}
+if(isset($_GET['stid']))
+{
+  $stid=$_GET['stid'];
+  $stid=preg_replace('/[^-a-zA-Z0-9_]/', '',$stid);
+  $st_data=$question->question_status($stid);
+}
 ?>
 <div class="container-fluid"><hr>
 <div class="row-fluid">
@@ -99,7 +111,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'&&isset($_POST['submit']))
            
                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
            </form>
-      </div>
+   </div>
     </div>
      </div>
      </div>
@@ -118,7 +130,6 @@ if($_SERVER['REQUEST_METHOD']=='POST'&&isset($_POST['submit']))
         <table class="table table-bordered data-table">
           <thead>
             <tr>
-              <th>Sl No</th>
               <th>Exam Name</th>
               <th>Subject</th>
               <th>Question</th>
@@ -133,17 +144,64 @@ if($_SERVER['REQUEST_METHOD']=='POST'&&isset($_POST['submit']))
           </thead>
           <tbody>
             <tr class="gradeX">
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
+           <?php
+           $que_data=$question->question_data();
+           if($que_data)
+           {
+            while ($value=$que_data->fetch_assoc()) {
+            ?>
+              <td><?=$value['exam_name']?></td>
+              <td><?=$value['subject']?></td>
+              <td><span style="color:blue;"><?=$value['question']?></span></td>
+              <td><span style="color:red;"><?=$value['opt1']?></span></td>
+              <td><span style="color:red;"><?=$value['opt2']?></span></td>
+              <td><span style="color:red;"><?=$value['opt3']?></span></td>
+              <td><span style="color:red;"><?=$value['opt4']?></span></td>
+              <td><span style="color:green;"><?=$value['corr']?></span></td>
+              <td> 
+              <?php
+               if($value['status']=='Active')
+               {
+                ?>
+                 <span style="color:green;"><i class="fa fa-circle" aria-hidden="true"></i>&nbsp;<?=$value['status']?></span>
+                <?php
+               }else
+               {
+                ?>
+                <span style="color:red;"><i class="fa fa-circle" aria-hidden="true"></i>&nbsp;<?=$value['status']?></span>
+                <?php
+               }
+               ?></td>
+              <td class="display_status">
+                
+                <a href="index.php?page=question_edit&&editid=<?=$value['id']?>">
+                 <button type="button" class="btn btn-info btn-lg">Edit</button>
+                </a>
+                <a href="index.php?page=question&&delid=<?=$value['id']?>" onclick="return confirm('Are You Sure?')" >
+                 <button type="button" class="btn btn-danger btn-lg">Delete</button>
+                </a>
+                <?php
+                 if($value['status']=='Active'):
+                 ?>
+                 <a href="index.php?page=question&&stid=<?=$value['id']?>">
+                 <button class="btn btn-warning">Inactive</button>
+                </a>
+                <?php
+                 else:
+                ?>
+                 <a href="index.php?page=question&&stid=<?=$value['id']?>">
+                 <button class="btn btn-success">Active</button>
+                </a>
+                <?php
+                 endif;
+                ?>
+              </td>
+               </tr>
+              <?php
+            }
+          }
+          ?>
+             
           </tbody>
         </table>
       </div>
@@ -158,10 +216,6 @@ if($_SERVER['REQUEST_METHOD']=='POST'&&isset($_POST['submit']))
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript">
      $(document).ready(function(){
-        $("#close").unbind().click(function(){
-        $("#model").fadeOut(500);
-      });
-
      $(".exam_name").unbind().change(function(){
           var exam_name=$(this).val();
           $.post('report.php',{exam_name:exam_name},function(data){
