@@ -174,4 +174,80 @@ class Question{
 		}
 
 	}
+  
+    public function right_ans($data)
+    {   
+    	$number=$data['q'];
+    	$number=$this->fm->validation($data['q']);
+    	$number=mysqli_real_escape_string($this->db->connection,$data['q']);
+    	$choose=$this->fm->validation($data['optradio']);
+    	$choose=mysqli_real_escape_string($this->db->connection,$data['optradio']);
+    	$next=$number+1;
+    	 $total=$this->question_total();
+    	 $rans=$this->rightAns($number);
+         if(!isset($_SESSION['score']))
+         {
+         	$_SESSION['score']='0';
+         }
+         
+         if($rans==$choose)
+         {
+             $_SESSION['score']++;
+         }
+         if($number==$total)
+         {
+         	
+         	header('Location:final.php');
+         	exit();
+         }
+         else
+         {
+         	header('Location:exam.php?q='.$next);
+         }
+
+
+    }
+
+
+
+
+
+
+
+
+
+	public function question_data_user()
+	{
+		$data=$this->db->selectby("Question","*","status='Active'");
+		if($data)
+		{
+			return $data;
+		}
+	}
+
+	public function question_user($id)
+	{
+      $id=mysqli_real_escape_string($this->db->connection,$id);
+      $data=$this->db->selectby("Question","*","id='$id' AND status='Active'");
+      if($data)
+      {
+      	return $data->fetch_assoc();
+      }
+	}
+
+    public function question_total()
+	{
+		$data=$this->db->selectby("Question","*","status='Active'");
+	    $row=$data->num_rows;
+	    return $row;
+	}
+	public function rightAns($number)
+	{
+		$ans=$this->db->selectby("Question","*","id='$number'");
+		if($ans)
+		{
+			$value=$ans->fetch_assoc();
+			return $value['corr'];
+		}
+	}
 }
