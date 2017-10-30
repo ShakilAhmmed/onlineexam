@@ -5,7 +5,10 @@
 <!-- //banner section -->
 <!-- services -->
 <!-- Admission form -->
-
+<?php
+$question=new Question;
+$question_value=$question->question_data_user()->fetch_assoc();
+?>
     <div class="admission" id="exam">
 	   <div class="container">
 	   <div class="heading">
@@ -17,8 +20,9 @@
                   <div class="clearfix"> </div>
             </div>
             <div class="col-md-6 admission_right">
-            <a href="exam.php">
+            <a href="exam.php?q=<?=$question_value['id']?>">
 	            <button class="course-submit">Start Exam</button>	
+	        </a>
 	   	   </div>	                            
 	   	   </div>
 	   	</div>
