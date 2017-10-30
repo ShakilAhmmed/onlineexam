@@ -23,7 +23,7 @@ $data=new Question;
 <span id="msg"></span>
 <div>
 <h1 class="mg">Welcome To Online Examination</h1>
-<div class="text-right" id="t"><h3>Time:<span id="time"></span></h3></div>
+<div class="text-right" id="t"><!-- <h3>Time:<span id="time"></span></h3> --></div>
 </div>
 <hr>
 <div>
@@ -93,21 +93,21 @@ if($_SERVER['REQUEST_METHOD']=='POST'&&isset($_POST['next']))
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript">
-      $(document).ready(function (){
-          var timesRun = 0;
-          var interval = setInterval(function(){
-             timesRun += 1;
-            if(timesRun === 20){
-            	$(".question").attr('disabled','disabled');
-              $("#msg").html("<font style=\"color:red;\">You Can't Answer The Question.Time Is Up</font>");
-              clearInterval(interval);
+//       $(document).ready(function (){
+//           var timesRun = 0;
+//           var interval = setInterval(function(){
+//              timesRun += 1;
+//             if(timesRun === 20){
+//             	$(".question").attr('disabled','disabled');
+//               $("#msg").html("<font style=\"color:red;\">You Can't Answer The Question.Time Is Up</font>");
+//               clearInterval(interval);
 
-              }
-            $("#time").text(timesRun);
-}, 1000); 
+//               }
+//             $("#time").text(timesRun);
+// }, 1000); 
 
 
-    });
+//     });
 </script>
 <script type="text/javascript">
    // window.onbeforeunload = function() { return "Are you sure you want to leave?"; }

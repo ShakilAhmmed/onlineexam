@@ -32,10 +32,31 @@
 		  }
 		 }
 
+		 public static function checkAdminLogin(){
+		  self::init();
+		  if (self::get("login")== true) {
+		   header("Location:../Admin_panel/index.php");
+		  }
+		 }
+
+		 public static function checkAdminSession(){
+		  self::init();
+		  if (self::get("login")== false) {
+		   self::destroy();
+		   header("Location:../Admin_login/index.php");
+		  }
+		 }
+
 		 public static function destroy(){
 		  session_destroy();
 		  header("Location:../Login_panel/index.php");
 		 }
+		 
+		 public static function admindestroy(){
+		  session_destroy();
+		  header("Location:../Admin_login/index.php");
+		 }
+
 
 
  }
