@@ -28,6 +28,10 @@ class File{
 
 	    		case 'question_edit':
 	    		include '../Admin_panel/Sub_page/question_edit.php';
+	    		break; 
+
+	    		case 'admin':
+	    		include '../Admin_panel/Sub_page/admin.php';
 	    		break;
 	    		
 	    		case 'user':

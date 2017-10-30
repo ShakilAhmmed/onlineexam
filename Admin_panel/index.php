@@ -1,4 +1,6 @@
 <?php
+include '../Session/Session.php';
+Session::checkAdminSession();
 include '../Config/Config.php';
 include '../Database/Database.php';
 include '../Format/Format.php';
@@ -35,7 +37,7 @@ include '../Format/Format.php';
 <!--top-Header-menu-->
 <div id="user-nav" class="navbar navbar-inverse">
   <ul class="nav">
-    <li  class="dropdown" id="profile-messages" ><a title="" href="#" data-toggle="dropdown" data-target="#profile-messages" class="dropdown-toggle"><i class="icon icon-user"></i>  <span class="text">Welcome User</span><b class="caret"></b></a>
+    <li  class="dropdown" id="profile-messages" ><a title="" href="#" data-toggle="dropdown" data-target="#profile-messages" class="dropdown-toggle"><i class="icon icon-user"></i>  <span class="text">Welcome <?php echo Session::get("name");?></span><b class="caret"></b></a>
       <ul class="dropdown-menu">
         <li><a href="#"><i class="icon-user"></i> My Profile</a></li>
         <li class="divider"></li>
@@ -56,9 +58,15 @@ include '../Format/Format.php';
       </ul>
     </li>
     <li class=""><a title="" href="#"><i class="icon icon-cog"></i> <span class="text">Settings</span></a></li>
-    <li class=""><a title="" href="login.html"><i class="icon icon-share-alt"></i> <span class="text">Logout</span></a></li>
+    <li class=""><a title="" href="?action=logout"><i class="icon icon-share-alt"></i> <span class="text">Logout</span></a></li>
   </ul>
 </div>
+<?php
+if(isset($_GET['action']))
+{
+  Session::admindestroy();
+}
+?>
 <!--close-top-Header-menu-->
 <!--start-top-serch-->
 <div id="search">
@@ -73,47 +81,8 @@ include '../Format/Format.php';
     <li> <a href="?page=setup"><i class="icon icon-signal"></i> <span>Setup</span></a> </li>
     <li> <a href="?page=exam"><i class="icon icon-inbox"></i> <span>Exam</span></a> </li>
     <li><a href="?page=question"><i class="icon icon-th"></i> <span>Questions</span></a></li>
-    <li><a href="?page=user"><i class="icon icon-fullscreen"></i> <span>User</span></a></li>
-    <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i> <span>Forms</span> <span class="label label-important">3</span></a>
-      <ul>
-        <li><a href="form-common.html">Basic Form</a></li>
-        <li><a href="form-validation.html">Form with Validation</a></li>
-        <li><a href="form-wizard.html">Form with Wizard</a></li>
-      </ul>
-    </li>
-    <li><a href="buttons.html"><i class="icon icon-tint"></i> <span>Buttons &amp; icons</span></a></li>
-    <li><a href="interface.html"><i class="icon icon-pencil"></i> <span>Eelements</span></a></li>
-    <li class="submenu"> <a href="#"><i class="icon icon-file"></i> <span>Addons</span> <span class="label label-important">5</span></a>
-      <ul>
-        <li><a href="index2.html">Dashboard2</a></li>
-        <li><a href="gallery.html">Gallery</a></li>
-        <li><a href="calendar.html">Calendar</a></li>
-        <li><a href="invoice.html">Invoice</a></li>
-        <li><a href="chat.html">Chat option</a></li>
-      </ul>
-    </li>
-    <li class="submenu"> <a href="#"><i class="icon icon-info-sign"></i> <span>Error</span> <span class="label label-important">4</span></a>
-      <ul>
-        <li><a href="error403.html">Error 403</a></li>
-        <li><a href="error404.html">Error 404</a></li>
-        <li><a href="error405.html">Error 405</a></li>
-        <li><a href="error500.html">Error 500</a></li>
-      </ul>
-    </li>
-    <li class="content"> <span>Monthly Bandwidth Transfer</span>
-      <div class="progress progress-mini progress-danger active progress-striped">
-        <div style="width: 77%;" class="bar"></div>
-      </div>
-      <span class="percent">77%</span>
-      <div class="stat">21419.94 / 14000 MB</div>
-    </li>
-    <li class="content"> <span>Disk Space Usage</span>
-      <div class="progress progress-mini active progress-striped">
-        <div style="width: 87%;" class="bar"></div>
-      </div>
-      <span class="percent">87%</span>
-      <div class="stat">604.44 / 4000 MB</div>
-    </li>
+    <li><a href="?page=user"><i class="icon icon-fullscreen"></i> <span>Student</span></a></li>
+    <li><a href="?page=admin"><i class="icon icon-fullscreen"></i> <span>Admin</span></a></li>
   </ul>
 </div>
 <!--sidebar-menu-->
@@ -126,6 +95,11 @@ include '../Format/Format.php';
   </div>
   <!-- content -->
    <?php
+
+    // if(isset($_COOKIE['name']))
+    // {
+    //   echo "Welcome Back".$_COOKIE['name'];
+    // }
     $file->file_load();
    ?>
    <!-- content -->

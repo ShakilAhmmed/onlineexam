@@ -48,3 +48,14 @@ if(isset($_POST['name']))
 
 		}
 }
+if(isset($_POST['email']))
+{
+
+	$email    =$_POST['email'];
+	$email    =mysqli_real_escape_string($db->connection,$_POST['email']);
+	$data=$db->selectby("Admin","*","email='$email'");
+	if($data->num_rows>0)
+	{
+		echo "Email Is Already Exist";
+	}
+}

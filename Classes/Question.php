@@ -29,15 +29,15 @@ class Question{
 	}
 	public function new_question($data)
 	{
-		$exam_name=$data['exam_name'];
-		$subject  =$data['subject'];
-		$question =$data['question'];
-		$opt1     =$data['opt1'];
-		$opt2     =$data['opt2'];
-		$opt3     =$data['opt3'];
-		$opt4     =$data['opt4'];
-		$corr     =$data['corr'];
-		$status   =$data['status'];
+		$exam_name=mysqli_rela_escape_string($this->db->connection,$data['exam_name']);
+		$subject  =mysqli_real_escape_string($this->db->connection,$data['subject']);
+		$question =mysqli_real_escape_string($this->db->connection,$data['question']);
+		$opt1     =mysqli_real_escape_string($this->db->connection,$data['opt1']);
+		$opt2     =mysqli_real_escape_string($this->db->connection,$data['opt2']);
+		$opt3     =mysqli_real_escape_string($this->db->connection,$data['opt3']);
+		$opt4     =mysqli_real_escape_string($this->db->connection,$data['opt4']);
+		$corr     =mysqli_real_escape_string($this->db->connection,$data['corr']);
+		$status   =mysqli_real_escape_string($this->db->connection,$data['status']);
 		$input    =[
                     'Exam Name'=>$exam_name,
                     'Subject'  =>$subject,
@@ -51,7 +51,7 @@ class Question{
                     ];
        foreach ($input as  $value) {
 			$this->fm->validation($value);
-			echo mysqli_real_escape_string($this->db->connection,$value);
+		 // mysqli_real_escape_string($this->db->connection,$value);
 		}
 		if(empty($exam_name)||empty($subject)||empty($question)||empty($opt1)||empty($opt2)||empty($opt3)||empty($opt4)||empty($corr)||empty($status))
 		{

@@ -6,6 +6,7 @@ class Format{
 		$data=trim($data);
 		$data=htmlspecialchars($data);
 		$data=stripcslashes($data);
+		$data=htmlentities($data);
 		return $data;
 	}
 
